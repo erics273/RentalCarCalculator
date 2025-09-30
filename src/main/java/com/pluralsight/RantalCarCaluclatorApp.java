@@ -40,25 +40,8 @@ public class RantalCarCaluclatorApp {
         int age = theScanner.nextInt();
 
         //calculate the base rental price 29.99 per day
-        double basePrice = 29.99 * numOfDays;
-
-        //start options cost at 0, they dont have an options cost unless they pick options
-        double optionsCost = 0;
-        //figure out the options cost (gps + toll + roadside assistance)
-        if (tollTag.equalsIgnoreCase("y")) {
-            optionsCost += 3.95;
-        }
-
-        if (gps.equalsIgnoreCase("y")) {
-            optionsCost += 2.95;
-        }
-
-        if (roadsideAssistance.equalsIgnoreCase("y")) {
-            optionsCost += 3.95;
-        }
-
-        //genearate total options cost
-        optionsCost *= numOfDays;
+        double basePrice = calculateBasePrice(numOfDays);
+        double optionsCost = calculateOptionsCost(tollTag, gps, roadsideAssistance, numOfDays);
 
         double subTotal = basePrice + optionsCost;
 
@@ -89,5 +72,31 @@ public class RantalCarCaluclatorApp {
         System.out.printf("Total Cost $%.2f", total);
 
     }
+
+    public static double calculateBasePrice(int numberOfDays){
+        return numberOfDays * 29.99;
+    }
+
+    public static double calculateOptionsCost(String tollTag, String gps, String rsa, int numOfDays){
+
+        //start options cost at 0, they dont have an options cost unless they pick options
+        double optionsCost = 0;
+        //figure out the options cost (gps + toll + roadside assistance)
+        if (tollTag.equalsIgnoreCase("y")) {
+            optionsCost += 3.95;
+        }
+
+        if (gps.equalsIgnoreCase("y")) {
+            optionsCost += 2.95;
+        }
+
+        if (rsa.equalsIgnoreCase("y")) {
+            optionsCost += 3.95;
+        }
+
+        //genearate total options cost
+        return  optionsCost *= numOfDays;
+    }
+
 
 }
